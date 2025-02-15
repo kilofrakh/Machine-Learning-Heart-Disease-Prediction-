@@ -33,3 +33,19 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 print ('Train set:', X_train.shape,  y_train.shape)
 print ('Test set:', X_test.shape,  y_test.shape)
+
+# counting no. of patients affected with CHD
+plt.figure(figsize=(7, 5))
+sns.countplot(x='TenYearCHD', data=disease_df,
+             palette="BuGn_r")
+plt.show()
+
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
+y_pred = logreg.predict(X_test)
+
+# Evaluation and accuracy
+from sklearn.metrics import accuracy_score
+print('Accuracy of the model is =', 
+      accuracy_score(y_test, y_pred))
