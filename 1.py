@@ -18,3 +18,18 @@ disease_df.rename(columns ={'male':'Sex_male'}, inplace = True)
 disease_df.dropna(axis = 0, inplace = True)
 print(disease_df.head(), disease_df.shape)
 print(disease_df.TenYearCHD.value_counts())
+
+X = np.asarray(disease_df[['age', 'Sex_male', 'cigsPerDay', 
+                           'totChol', 'sysBP', 'glucose']])
+y = np.asarray(disease_df['TenYearCHD'])
+
+# normalization of the dataset
+X = preprocessing.StandardScaler().fit(X).transform(X)
+
+# Train-and-Test -Split
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split( 
+        X, y, test_size = 0.3, random_state = 4)
+
+print ('Train set:', X_train.shape,  y_train.shape)
+print ('Test set:', X_test.shape,  y_test.shape)
